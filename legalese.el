@@ -187,16 +187,20 @@ commented out using comment-region."
 prefix-argument ASK, ask for a license to use."
   (interactive "P")
   (let ((legalese-year (format-time-string "%Y"))
-        (legalese-copyright (or legalese-default-copyright 
+        (legalese-copyright (or legalese-default-copyright
                                 (concat user-full-name
                                         " <" user-mail-address ">")))
         (legalese-author (or legalese-default-author
                              (concat user-full-name
                                      " <" user-mail-address ">")))
-        (legalese-file-name (file-name-nondirectory (buffer-file-name)))
-        (legalese-file (file-name-nondirectory
-                        (file-name-sans-extension
-                         (buffer-file-name))))
+        (legalese-file-name (if (buffer-file-name)
+                                (file-name-nondirectory (buffer-file-name))
+                              (buffer-name)))
+        (legalese-file (if (buffer-file-name)
+                           (file-name-nondirectory
+                            (file-name-sans-extension
+                             (buffer-file-name)))
+                         (buffer-name)))
         (legalese-license (if (car ask)
                               (intern
                                (completing-read "License: "
