@@ -181,6 +181,7 @@ commented out using comment-region."
   :type '(alist :key-type symbol
                 :value-type (repeat string)))
 
+;;;###autoload
 (defun legalese (ask)
   "Add standard legalese prelude to the current buffer. With
 prefix-argument ASK, ask for a license to use."
