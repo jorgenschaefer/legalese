@@ -1,37 +1,32 @@
 ;;; legalese.el --- Add legalese to your program files
 
-;; Copyright (C) 2004  Jorgen Schaefer <forcer@forcix.cx>
+;; Copyright (C) 2004, 2012  Jorgen Schaefer
 
+;; Version: 1.0
 ;; Author: Jorgen Schaefer <forcer@forcix.cx>
+;; URL: https://github.com/jorgenschaefer/legalese
 ;; Keywords: convenience
 
-;; This file is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 2, or (at your option)
-;; any later version.
-
-;; This file is distributed in the hope that it will be useful,
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License
+;; as published by the Free Software Foundation; either version 3
+;; of the License, or (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-
+;;
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-;; Boston, MA 02110-1301, USA.
+;; along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 
 ;; This file adds the sometimes necessary legalese to your files. That
 ;; is, it adds a license header. For most files, it tries to adhere to
-;; a nice standard layout.
+;; a nice standard layout. Simply use the `legalese' command.
 
-;; I recommend the following setup:
-
-;; (setq comment-style 'extra-line)
-;; (add-hook 'scheme-mode-hook
-;;           (lambda ()
-;;             (set (make-local-variable 'comment-add) 1)))
+;; You probably want to customized `comment-style'.
 
 ;;; Code:
 
