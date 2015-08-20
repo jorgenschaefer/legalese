@@ -35,7 +35,7 @@
 (require 'finder)
 
 (defvar legalese-version "1.0"
-  "Version string of legalese.el")
+  "Version string of legalese.el.")
 
 (defgroup legalese nil
   "*Add legalese to your files."
@@ -43,15 +43,17 @@
   :group 'programming)
 
 (defcustom legalese-default-copyright nil
-  "*The string to use by default for the copyright holder. If this is
-nil, the current users' mail address is used."
+  "The string to use by default for the copyright holder.
+
+If this is nil, the current users' mail address is used."
   :group 'legalese
   :type '(choice string
                  (const :tag "Default address" nil)))
 
 (defcustom legalese-default-author nil
-  "*The string to use by default for the author. If this is nil, the
-current users' mail address is used."
+  "The string to use by default for the author.
+
+If this is nil, the current users' mail address is used."
   :group 'legalese
   :type '(choice string
                  (const :tag "Default address" nil)))
@@ -209,8 +211,9 @@ commented out using comment-region."
 
 ;;;###autoload
 (defun legalese (ask)
-  "Add standard legalese prelude to the current buffer. With
-prefix-argument ASK, ask for a license to use."
+  "Add standard legalese prelude to the current buffer.
+
+With prefix-argument ASK, ask for a license to use."
   (interactive "P")
   (let ((legalese-year (format-time-string "%Y"))
         (legalese-copyright (or legalese-default-copyright
@@ -260,7 +263,7 @@ prefix-argument ASK, ask for a license to use."
   (insert "\n"))
 
 (defun legalese-elisp-keyword ()
-  "Add emacs lisp keywords."
+  "Add Emacs Lisp keywords."
   (require 'finder)
   (let ((keywords (mapcar (lambda (x) (list (symbol-name (car x))))
                           finder-known-keywords))
