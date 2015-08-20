@@ -30,6 +30,8 @@
 
 ;;; Code:
 
+(require 'diary-lib)
+
 (defvar legalese-version "1.0"
   "Version string of legalese.el")
 
@@ -52,6 +54,18 @@ current users' mail address is used."
   :type '(choice string
                  (const :tag "Default address" nil)))
 
+(defcustom legalese-date-format "%d %b %Y"
+  "Determine how to insert creation date in the header.
+
+By default inserts date in the format `01 Jan 1970'.
+
+If a symbol 'ordinal, insert date formatted with full english
+month name and an ordinal suffix attached to the day, such as
+`1st January 1970'."
+  :group 'legalese
+  :type '(choice (string :tag "Format string for `format-time-string'")
+                 (const :tag "Date formatted with english ordinal suffix (1st January 1970)" ordinal)))
+
 (defcustom legalese-default-license 'gpl
   "*The default license to use."
   :group 'legalese
@@ -69,6 +83,7 @@ current users' mail address is used."
                           ;; *shrug* :-)
                           ";; Keywords: " ((legalese-elisp-keyword)
                                            str ", ") & -2 "\n"
+                          ";; Created: " legalese-date "\n"
                           "\n"
                           @
                           '(legalese-license)
@@ -181,6 +196,14 @@ commented out using comment-region."
   :type '(alist :key-type symbol
                 :value-type (repeat string)))
 
+
+(defun legalese--date-ordinal (&optional time)
+  "Format date as Xth Month Year."
+  (let* ((day (format-time-string "%e" time))
+         (day-ordinal-suffix (diary-ordinal-suffix (string-to-number day)))
+         (month-and-year (format-time-string " %B %Y")))
+    (concat day day-ordinal-suffix month-and-year)))
+
 ;;;###autoload
 (defun legalese (ask)
   "Add standard legalese prelude to the current buffer. With
@@ -212,7 +235,12 @@ prefix-argument ASK, ask for a license to use."
                                                  legalese-licenses)
                                                 nil
                                                 t))
-                            legalese-default-license)))
+                            legalese-default-license))
+        (legalese-date (cond
+                        ((eq legalese-date-format 'ordinal)
+                         (legalese--date-ordinal))
+                        ((stringp legalese-date-format)
+                         (format-time-string legalese-date-format)))))
     (skeleton-insert (cadr (or (assq major-mode legalese-templates)
                                (assq 'default legalese-templates))))
     (let ((beg (cadr skeleton-positions))
