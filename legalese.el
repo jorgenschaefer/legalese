@@ -31,6 +31,8 @@
 ;;; Code:
 
 (require 'diary-lib)
+(require 'skeleton)
+(require 'finder)
 
 (defvar legalese-version "1.0"
   "Version string of legalese.el")
