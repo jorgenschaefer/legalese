@@ -31,9 +31,11 @@
 ;;; Code:
 
 (require 'diary-lib)
+(require 'skeleton)
+(require 'finder)
 
 (defvar legalese-version "1.0"
-  "Version string of legalese.el")
+  "Version string of legalese.el.")
 
 (defgroup legalese nil
   "*Add legalese to your files."
@@ -41,15 +43,17 @@
   :group 'programming)
 
 (defcustom legalese-default-copyright nil
-  "*The string to use by default for the copyright holder. If this is
-nil, the current users' mail address is used."
+  "The string to use by default for the copyright holder.
+
+If this is nil, the current users' mail address is used."
   :group 'legalese
   :type '(choice string
                  (const :tag "Default address" nil)))
 
 (defcustom legalese-default-author nil
-  "*The string to use by default for the author. If this is nil, the
-current users' mail address is used."
+  "The string to use by default for the author.
+
+If this is nil, the current users' mail address is used."
   :group 'legalese
   :type '(choice string
                  (const :tag "Default address" nil)))
@@ -82,7 +86,8 @@ month name and an ordinal suffix attached to the day, such as
                           ;; This looks weird. Taken from autoinsert.
                           ;; *shrug* :-)
                           ";; Keywords: " ((legalese-elisp-keyword)
-                                           str ", ") & -2 "\n"
+                                           str ", ")
+                          & -2 "\n"
                           ";; Created: " legalese-date "\n"
                           "\n"
                           @
@@ -111,14 +116,14 @@ month name and an ordinal suffix attached to the day, such as
                       ";;; Code:\n"
                       "\n"))
     (default (nil @
-                  legalese-file-name " --- " _ "\n"
-                  "\n"
-                  "Copyright (C) " legalese-year " " legalese-copyright "\n"
-                  "\n"
-                  "Author: " legalese-author "\n"
-                  "\n"
-                  '(legalese-license)
-                  @)))
+              legalese-file-name " --- " _ "\n"
+              "\n"
+              "Copyright (C) " legalese-year " " legalese-copyright "\n"
+              "\n"
+              "Author: " legalese-author "\n"
+              "\n"
+              '(legalese-license)
+              @)))
   "*A list that associates a major mode with the appropriate skeleton
 to use for this mode. The region between the last two @ marks will be
 commented out using comment-region."
@@ -151,7 +156,7 @@ commented out using comment-region."
           ""
           "You should have received a copy of the GNU Lesser General Public"
           "License along with this library. If not, see"
-	  "<http://www.gnu.org/licenses/>.")
+          "<http://www.gnu.org/licenses/>.")
     (fdl "Permission is granted to copy, distribute and/or modify this document"
          "under the terms of the GNU Free Documentation License, Version 1.1"
          "or any later version published by the Free Software Foundation;"
@@ -206,8 +211,9 @@ commented out using comment-region."
 
 ;;;###autoload
 (defun legalese (ask)
-  "Add standard legalese prelude to the current buffer. With
-prefix-argument ASK, ask for a license to use."
+  "Add standard legalese prelude to the current buffer.
+
+With prefix-argument ASK, ask for a license to use."
   (interactive "P")
   (let ((legalese-year (format-time-string "%Y"))
         (legalese-copyright (or legalese-default-copyright
@@ -257,11 +263,11 @@ prefix-argument ASK, ask for a license to use."
   (insert "\n"))
 
 (defun legalese-elisp-keyword ()
-  "Add emacs lisp keywords."
+  "Add Emacs Lisp keywords."
   (require 'finder)
   (let ((keywords (mapcar (lambda (x) (list (symbol-name (car x))))
                           finder-known-keywords))
-	(minibuffer-help-form (mapconcat (lambda (x) (format "%10.0s:  %s"
+        (minibuffer-help-form (mapconcat (lambda (x) (format "%10.0s:  %s"
                                                              (car x)
                                                              (cdr x)))
                                          finder-known-keywords
